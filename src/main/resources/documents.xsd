@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://conciliacion.pe/documents" 
+xmlns:tns="http://conciliacion.pe/documents" 
+elementFormDefault="qualified">
+	<!-- Cargar documentos -->	
+	<xs:element name="ProcessBulkDocumentRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="typeDocument" type="xs:string" />
+				<xs:element name="base64" type="xs:string"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ProcessBulkDocumentResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="ServiceStatus" type="tns:ServiceStatus"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<!-- Listado de documentos Pendientes-->
+	<xs:element name="GetAllDocumentsByClientDocNumberRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="clientDocNumber" type="xs:string" />
+				<xs:element name="offset" type="xs:int" />
+				<xs:element name="limit" type="xs:int" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetAllDocumentsByClientDocNumberResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="DocumentPending" type="tns:DocumentPending" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ExecutePaymentRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Header" type="tns:Header"/>
+				<xs:element name="Detail" type="tns:Detail" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ExecutePaymentResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="PaymentConfirmation" type="tns:PaymentConfirmation"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<!-- Modelos -->	
+	<xs:complexType name="PaymentConfirmation">
+        <xs:sequence>
+            <xs:element name="CIP" type="xs:string"/>
+            <xs:element name="total" type="xs:double"/>
+            <xs:element name="message" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+	<xs:complexType name="ServiceStatus">
+        <xs:sequence>
+            <xs:element name="statusCode" type="xs:string"/>
+            <xs:element name="message" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>    
+    <xs:complexType name="DocumentPending">
+		<xs:sequence>
+			<xs:element name="cu" type="xs:string" />
+			<xs:element name="docType" type="xs:string" />
+			<xs:element name="zone" type="xs:string" />
+			<xs:element name="series" type="xs:string" />
+			<xs:element name="sequence" type="xs:string" />
+			<xs:element name="description" type="xs:string" />
+			<xs:element name="clientDocType" type="xs:string" />
+			<xs:element name="clientDocNumber" type="xs:string" />
+			<xs:element name="companyName" type="xs:string" />			
+			<xs:element name="dueDate" type="xs:string" />
+			<xs:element name="issueDate" type="xs:string" />			
+			<xs:element name="referenceNumber" type="xs:string" />
+			<xs:element name="affectationInstruction" type="xs:string" />
+			<xs:element name="currency" type="xs:string" />
+			<xs:element name="subTotal" type="xs:double" />
+			<xs:element name="igv" type="xs:double" />
+			<xs:element name="delay" type="xs:string" />
+			<xs:element name="total" type="xs:double" />
+			<xs:element name="reason" type="xs:string" />
+			<xs:element name="detraccion" type="xs:string" />
+			<xs:element name="processDate" type="xs:string" />
+			<xs:element name="processUser" type="xs:string" />
+			<xs:element name="paymentType" type="xs:string" />
+			<xs:element name="additionalDataOne" type="xs:string" />
+			<xs:element name="additionalDataTwo" type="xs:string" />
+			<xs:element name="additionalDataThree" type="xs:string" />
+			<xs:element name="additionalDataFour" type="xs:string" />
+			<xs:element name="additionalDataFive" type="xs:string" />
+			<xs:element name="additionalDataSix" type="xs:string" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Header">
+        <xs:sequence>
+            <xs:element name="customerRuc" type="xs:string"/>
+            <xs:element name="currency" type="xs:string"/>
+            <xs:element name="totalAmount" type="xs:double"/>
+            <xs:element name="paymentConcep" type="xs:string"/>
+            <xs:element name="serviceCode" type="xs:string"/>
+            <xs:element name="userEmail" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Detail">
+        <xs:sequence>
+            <xs:element name="cu" type="xs:string" />
+			<xs:element name="docType" type="xs:string" />			
+			<xs:element name="description" type="xs:string" />
+			<xs:element name="clientDocType" type="xs:string" />									
+			<xs:element name="issueDate" type="xs:string" />			
+			<xs:element name="referenceNumber" type="xs:string" />
+			<xs:element name="currency" type="xs:string" />
+			<xs:element name="subTotal" type="xs:double" />
+			<xs:element name="igv" type="xs:double" />
+			<xs:element name="delay" type="xs:string" />
+			<xs:element name="total" type="xs:double" />
+			<xs:element name="detailCode" type="xs:double" />
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
